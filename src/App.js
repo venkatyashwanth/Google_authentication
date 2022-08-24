@@ -28,6 +28,7 @@ function App() {
     <div>
       <form onSubmit={sendData}>
         <h2>SignUp With Google</h2>
+        <p>After submission check console for details</p>
         {/* <div>
           <label htmlFor="email">Email: </label>
           <input
