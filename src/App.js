@@ -1,23 +1,57 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import { app } from './firebaseConfig';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
 function App() {
+  let auth = getAuth();
+  const provider = new GoogleAuthProvider();
+
+  const [data, setData] = useState('');
+
+  const handleInput = (event) => {
+    let { name, value } = event.target;
+    setData({ ...data, [name]: value });
+  };
+
+  const sendData = (event) => {
+    event.preventDefault();
+    signInWithPopup(auth, provider)
+      .then((response) => {
+        console.log(response.user);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <form onSubmit={sendData}>
+        <h2>SignUp With Google</h2>
+        <div>
+          <label htmlFor="email">Email: </label>
+          <input
+            id="email"
+            type="email"
+            placeholder="Enter email"
+            name="email"
+            onChange={(event) => handleInput(event)}
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Passw: </label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter password"
+            name="password"
+            onChange={(event) => handleInput(event)}
+          />
+        </div>
+        <div>
+          <input type="submit" value="submit" />
+        </div>
+      </form>
     </div>
   );
 }
