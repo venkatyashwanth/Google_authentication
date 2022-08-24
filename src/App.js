@@ -28,7 +28,7 @@ function App() {
     <div>
       <form onSubmit={sendData}>
         <h2>SignUp With Google</h2>
-        <div>
+        {/* <div>
           <label htmlFor="email">Email: </label>
           <input
             id="email"
@@ -47,7 +47,7 @@ function App() {
             name="password"
             onChange={(event) => handleInput(event)}
           />
-        </div>
+        </div> */}
         <div>
           <input type="submit" value="submit" />
         </div>
